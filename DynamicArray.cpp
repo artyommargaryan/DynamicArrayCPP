@@ -84,11 +84,8 @@ bool DynamicArray::insert(int pos, int elem) {
     if (this->size == this->capacity) {
         this->capacity *= 2;
 
-        int* tmp = (int*) malloc(this->capacity * sizeof(int));
-        if (tmp == nullptr) {
-            return false;
-        }
-
+        int* tmp = new int[this->capacity];
+        
         for (int i = 0; i < pos; ++i) {
             tmp[i] = this->arr[i];
         }
@@ -99,7 +96,7 @@ bool DynamicArray::insert(int pos, int elem) {
             tmp[i + 1] = this->arr[i];
         }
 
-        free(this->arr);
+        delete this->arr;
         this->arr = tmp;
     } else {
         for (int i = this->size - 1; i >= pos; --i) {
